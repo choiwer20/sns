@@ -12,6 +12,18 @@
 	String userid="ImJSP";
 %>
 <script>
+	function Friend_Add(group,myid){
+		alert(group+myid);
+		var popUrl = "AddFriend.jsp?group="+group+"&myid="+myid;	//팝업창에 출력될 페이지 URL
+		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+		window.open(popUrl,"",popOption);
+		//self.opener=self;
+		//self.close();
+	}
+
+</script>
+
+<script>
 function fnAllClick(obj){
 	var chkobj = document.getElementsByName("checkbox");
 	var check = obj.checked;
@@ -56,16 +68,15 @@ function fnAllClick(obj){
    <td>
    <% 
    	   //friend
-	   
-   		FriendDao fdao=new FriendDao();
-    	Vector fgroup=fdao.getFriends(num);
-    	if(fgroup.isEmpty()){
+	   	FriendDao fdao=new FriendDao();
+    	Vector fgroup=fdao.getFriends(myid);
+    	if(fgroup.isEmpty()) {
     	
     %>
     		<b>no friend</b>
     	
     	<% 	
-    	}else{%>
+    	} else {%>
     <%
     	for(int i=0;i<fgroup.size();i++){
    		FriendDto fdto=(FriendDto)fgroup.get(i);
@@ -74,13 +85,13 @@ function fnAllClick(obj){
   
   		<tr>
   			<td>
-  			<a href="#"><%=fdto.getFriends()%></a>
+  			<a href="#"><%=fdto.getUserid2()%></a>
   			</td>
   		</tr>
   <%
     	}
     }
-    %>
+  %>
 <hr/>
     </td>
     <br/>
@@ -93,7 +104,7 @@ function fnAllClick(obj){
     <%
     	//group
     	GroupDao gdao=new GroupDao();
-    	Vector ggroup=(Vector)gdao.getGroup(num);
+    	Vector ggroup=(Vector)gdao.getGroup(myid);
     	System.out.println("Friends ggroup.size()="+ggroup.size());
     	if(ggroup.isEmpty()){
     	
@@ -105,23 +116,18 @@ function fnAllClick(obj){
     	for(int i=0;i<ggroup.size();i++){
    		GroupDto gdto=(GroupDto)ggroup.get(i);
    		System.out.println("gdto.getNum: "+gdto.getNum());
-   		%>
+   	%>
   						<tr>
-							<td><input type="checkbox" name="checkbox" value="<%=num%>"></td>
-  							
-  							<td><a href="#"><font size="4"><%=gdto.getNum() %></font></a></td>
-  							<td><a href="#"><font size="4"><%=gdto.getGroup() %></font></a></td>
-  							<td><a href="#"><font size="2"><%=gdto.getUserid() %></font></a></td>
+							<td><input type="checkbox" name="checkbox" value="<%=gdto.getNum()%>"></td>
+  							<td><a href="#"><font size="3"><%=gdto.getGroup()%></font></a>&nbsp;&nbsp;<input type="button" value="추가" onclick="javascript:Friend_Add('<%=gdto.getGroup()%>','<%=gdto.getMyid()%>')"/></td>
   						</tr>
-						
-   	<%
+	<%
     		}
     	}
     %>
-   </td> 
+   </td>
    </tr>
-  
-  <TR> 
+  <TR>
     <TD> 
    		<input type="submit" name="delete" value="삭제"/>
  		<!--<input type="button" name="delete" value="삭제" onclick="gdelete()"/>-->

@@ -5,6 +5,7 @@
 
 
 	String[] check1 = request.getParameterValues("checkbox");
+	System.out.println("check1.length"+check1.length);
 	int [] check2 = new int[check1.length];
 
 	for(int i=0; i<check1.length; i++){

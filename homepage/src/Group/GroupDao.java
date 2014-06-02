@@ -60,28 +60,26 @@ public class GroupDao {
 		}		
 	}
 	//Get group 
-	public Vector getGroup(int no){
+	public Vector getGroup(String myid){
 		Vector GroupList =new Vector();
-		GroupDto dto= new GroupDto();
-		System.out.println(no);
 		String sql="";
 		try{
-			System.out.println("getGroup no:"+no);
-			sql="select * from mygroup where no=?";
+			System.out.println("getGroup myid:"+myid);
+			sql="select * from mygroup where myid=?";
 			con=ds.getConnection();
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, no);
+			stmt.setString(1, myid);
 			rs=stmt.executeQuery();
 			while(rs.next()){
-			  
+				GroupDto dto= new GroupDto();
 				dto.setNum(rs.getInt("no"));
-				dto.setGroup(rs.getString("my_group"));
 				dto.setMyid(rs.getString("myid"));
+				dto.setGroup(rs.getString("my_group"));
 				dto.setUserid(rs.getString("userid"));
 				GroupList.add(dto);
 			}
-			System.out.println("getGroup 완성?");
 			
+			System.out.println("getGroup 완성?");
 		
 		}catch(Exception err){
 			
@@ -115,5 +113,25 @@ public class GroupDao {
 			freeCon();
 		}
 	}
-
+//userid1 userid2 friends  
+	//addGroupFriend
+	public void addGroupFriend(GroupDto dto) {
+			String sql="";
+			System.out.println("여기 오나?");
+		try{
+			sql="update mygroup set userid=? where myid=? and my_group=?";
+			con=ds.getConnection();
+			stmt=con.prepareStatement(sql);
+			stmt.setString(1, dto.getUserid());
+			stmt.setString(2, dto.getMyid());
+			stmt.setString(3, dto.getGroup());
+			stmt.executeUpdate();
+		System.out.println("[addGroupFriend 왕성]");
+		}catch(Exception err){
+			System.out.println("addGroupFriend()"+err);
+		}finally{
+			freeCon();
+			
+		}
+	}
 }

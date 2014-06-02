@@ -38,21 +38,22 @@ public class FriendDao {
 		try{if(stmt!=null){stmt.close();}}catch(Exception err){}
 	}
 
-	public Vector getFriends(int no){
+	public Vector getFriends(String myid){
 		Vector friendList =new Vector();
 		String sql;
 		try{
 			
 			//System.out.println("getFriends no Before:"+no);
-			sql="select * from freind where no=?";
+			sql="select * from freind where userid1=?";
 			con=ds.getConnection();
 			
 			//System.out.println("getFriends no After:"+no);
 			stmt=con.prepareStatement(sql);
-			stmt.setInt(1, no);
+			stmt.setString(1, myid);
 				
 			rs=stmt.executeQuery();
 			while(rs.next()){
+				System.out.println("getFriends():"+rs.getString("friends"));
 				FriendDto dto=new FriendDto();
 				dto.setFriends(rs.getString("friends"));
 				dto.setUserid1(rs.getString("userid1"));
