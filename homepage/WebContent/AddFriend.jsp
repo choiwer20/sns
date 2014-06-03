@@ -14,6 +14,7 @@
 		window.close();
 	}
 </script>
+<!-- 내 아이디와 구룹을 가져 옴 -->
 <jsp:useBean id="fdto" class="Friend.FriendDto"></jsp:useBean>
 
 </head>
@@ -59,11 +60,13 @@
     	%>
     </select>  
      <br/><br/>Add Friend at this group?<br/><br/>
-  	
-<!-- // userid1 userid2 friends --> 
-  	<input type="hidden" name="userid1" value="<%=fdto.getUserid1() %>">
+  		
+	<!-- // userid1 userid2 friends --> 
+	<!-- userid1 내 아이디 -->
+  	<input type="hidden" name="userid1" value="<%=fdto.getUserid1()%>">
+  	<!-- 구룹 -->
   	<input type="hidden" name="mygroup" value="<%=group%>">
-  	<input type="hidden" name="myid" value="<%=myid%>">
+  	<!-- 구룹 -->
   	<input type="submit" value="OK" onclick="javascript:close()"/>&nbsp;&nbsp;
   	<a href="javascript:close()">취소</a>
   	<input type="button" value="NO" onclick="javascript:close()"/><br/>

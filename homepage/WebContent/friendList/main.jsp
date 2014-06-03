@@ -1,3 +1,4 @@
+<%@page import="Friend.FriendDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*"%>
 <html>
 <head>
@@ -18,8 +19,11 @@
 <script type="text/javascript" src="/homepage/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/homepage/js/modernizr.js"></script>
 <script type="text/javascript" src="/homepage/js/responsee.js"></script>
+<jsp:useBean id="friendDao" class="Friend.FriendDao"></jsp:useBean>
+<%
+	String myid="ImJAVA";
 
-
+%>
 </head>
 <body class="size-1140">
 	<!-- TOP NAV WITH LOGO -->
@@ -91,43 +95,29 @@
 						</div>
 					</div>
 
+	
 
+			<%Vector friendList=(Vector)friendDao.getFriends(myid);%>
+					
 					<div class="move">
 						<div class="row">
 							<h3>친구목록</h3>
 							<div class="span10" align="center">
-								<table
-									class="table table-bordered table-hover table-condensed table-striped">
+								<%for(int i=0;i<friendList.size();i++){
+									FriendDto dto=(FriendDto)friendList.get(i);
+								%>
+												
+												
+								<table class="table table-bordered table-hover table-condensed table-striped">
 									<tbody>
 										<tr>
-											<td width="50" style="word-break: break-all"><img
-												src="img/3.jpg" alt="그림이 없습니다." style="margin-right: 10px" /><a
-												href="#">이름</a></td>
-											<td width="50" style="word-break: break-all"><a href="#">@@</a></td>
-											<td width="50" style="word-break: break-all"><input
-												type="button" value="관리" /></td>
-										</tr>
-										<tr>
-											<td width="50" style="word-break: break-all"><img
-												src="img/1.jpg" alt="그림이 없습니다." style="margin-right: 10px" /><a
-												href="#">이름</a></td>
-
-											<td width="50" style="word-break: break-all"><a href="#">@@</a></td>
-											<td width="50" style="word-break: break-all"><input
-												type="button" value="관리" /></td>
-										</tr>
-										<tr>
-
-											<td width="50" style="word-break: break-all"><img
-												src="img/2.jpg" alt="그림이 없습니다." style="margin-right: 10px" /><a
-												href="#">이름</a></td>
-
-											<td width="50" style="word-break: break-all"><a href="#">$$</a></td>
-											<td width="50" style="word-break: break-all"><input
-												type="button" value="관리" /></td>
+											 <td width="50" style="word-break: break-all"><img src="img/3.jpg" alt="그림이 없습니다." style="margin-right: 10px"/>
+											 <a href="#"><%=dto.getUserid2()%></a></td>
+											 <td width="50" style="word-break: break-all"><input type="button" value="관리" /></td>
 										</tr>
 									</tbody>
 								</table>
+								<%}%>
 							</div>
 						</div>
 					</div>

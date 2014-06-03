@@ -31,6 +31,7 @@
 <link href="bootstrap.css" rel="stylesheet" />
 <%
 	String userid=request.getParameter("userid");
+	System.out.println("userid:"+userid);
 %>
 
 

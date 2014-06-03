@@ -4,31 +4,23 @@
 <jsp:useBean id="dao" class="Group.GroupDao"></jsp:useBean>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+ <jsp:useBean id="groupDto" class="Group.GroupDto"></jsp:useBean>
 <%
 	//模备 罐酒坷扁
 	String userid=(String)request.getParameter("addFriend");
-	//模备 犬牢
-	System.out.println("add_friend_Proc.jsp (userid): "+userid);
 	String mygroup=request.getParameter("mygroup");
-	System.out.println("add_friend_Proc.jsp (mygroup): "+mygroup);
-	String myid=request.getParameter("myid");
+	String myid=request.getParameter("userid1");
+	System.out.println("add_friend myid:"+myid);
+	//GroupDto 积己
+		groupDto.setGroup(mygroup);
+		groupDto.setMyid(myid);
+		groupDto.setUserid(userid);
 	
-	Vector list=(Vector)dao.getGroup(myid);
-	for(int i=0;i<list.size();i++){
-	System.out.println("for_friend_Proc.jsp (mygroup): "+mygroup);
-		GroupDto dto=(GroupDto)list.get(i);
-		
-			if(dto.getMyid().equals(myid)){
-				System.out.println("if_friend_Proc.jsp (mygroup): "+mygroup);
-				if(dto.getGroup().equals(mygroup)){
-					System.out.println("if_if_friend_Proc.jsp (mygroup): "+mygroup);
-						
-					dao.addGroupFriend(dto);		
-					
-				}
-		
-			}
-	}
+	//模备 眠啊茄 备缝积己
+	dao.addGroupFriend(groupDto);
+	
+	Vector list=(Vector)dao.getCompleteGroup(myid);
+	
 	
 	/* //GroupDto dto= dao.();
 	dao.addGroupFriend(); */

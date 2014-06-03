@@ -14,19 +14,17 @@
 <script>
 	function Friend_Add(group,myid){
 		alert(group+myid);
+		//transfor group and myid to Add Friend
 		var popUrl = "AddFriend.jsp?group="+group+"&myid="+myid;	//팝업창에 출력될 페이지 URL
 		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 		window.open(popUrl,"",popOption);
 		//self.opener=self;
 		//self.close();
 	}
-
-</script>
-
-<script>
-function fnAllClick(obj){
-	var chkobj = document.getElementsByName("checkbox");
-	var check = obj.checked;
+	function fnAllClick(obj){
+	
+		var chkobj = document.getElementsByName("checkbox");
+		var check = obj.checked;
 
 		if(check){
 			for(var i=0; i<chkobj.length; i++){
@@ -59,11 +57,12 @@ function fnAllClick(obj){
 <div class="aside-nav">
 	<TABLE width="81" border="0" cellspacing="0" cellpadding="0" height="294">
   <TR>
-    	<TD valign="top" height="113" ">connect friend<hr></TD>
+    	<TD valign="top" height="113">connect friend<hr></TD>
   </TR>
 
   <TR>
-   <TD valign="top" height="113"><a href="friend_group/Group_Create.jsp?num=<%=num%>&myid=<%=myid%>&userid=<%=userid%>">group</a></TD><hr>
+  <!--   -->
+   <TD valign="top" height="113"><a href="friend_group/Group_Create.jsp?num=<%=num%>&myid=<%=myid%>">group</a></TD><hr>
   </TR>
    <td>
    <% 
@@ -104,25 +103,49 @@ function fnAllClick(obj){
     <%
     	//group
     	GroupDao gdao=new GroupDao();
-    	Vector ggroup=(Vector)gdao.getGroup(myid);
+    	Vector ggroup=(Vector)gdao.getGruop(myid);
     	System.out.println("Friends ggroup.size()="+ggroup.size());
-    	if(ggroup.isEmpty()){
+    	if(ggroup.isEmpty()) {
     	
     		%>
     		<b>no group</b>
     	<% 	
-    	}else{%>
+    	} else {%>
     <%
-    	for(int i=0;i<ggroup.size();i++){
-   		GroupDto gdto=(GroupDto)ggroup.get(i);
-   		System.out.println("gdto.getNum: "+gdto.getNum());
+    		for(int i=0;i<ggroup.size();i++){
+   			GroupDto gdto=(GroupDto)ggroup.get(i);
+   			System.out.println("gdto.getNum: "+gdto.getNum());
    	%>
   						<tr>
 							<td><input type="checkbox" name="checkbox" value="<%=gdto.getNum()%>"></td>
-  							<td><a href="#"><font size="3"><%=gdto.getGroup()%></font></a>&nbsp;&nbsp;<input type="button" value="추가" onclick="javascript:Friend_Add('<%=gdto.getGroup()%>','<%=gdto.getMyid()%>')"/></td>
+  							<td><a href="showFriend.jsp?myid=<%=gdto.getMyid()%>&mygetGroup=<%=gdto.getGroup()%>"><font size="3"><%=gdto.getGroup()%></font></a>&nbsp;&nbsp;<input type="button" value="추가" onclick="javascript:Friend_Add('<%=gdto.getGroup()%>','<%=gdto.getMyid()%>')"/></td>
   						</tr>
-	<%
-    		}
+ 	
+ 	
+ 	<%
+ 						try{
+ 							//System.out.println("fRiend:"+request.getAttribute("check"));						
+ 							//String check=(String)session.getAttribute("check");
+ 							//System.out.println(session.getAttribute("check") + "===============================");
+ 						
+ 							if(session.getAttribute("check").equals("1")){
+ 								
+ 								
+ 								
+ 	%>										
+ <%-- 												<tr><td><font><%=%></font></td></tr>
+  --%>	<%
+ 						 			
+ 	%>
+ 	<%
+ 							}
+ 							
+ 						
+ 						} catch(Exception err) {
+ 						
+ 							System.out.println(err);
+ 						}
+    			}
     	}
     %>
    </td>
@@ -137,3 +160,4 @@ function fnAllClick(obj){
  
 </TABLE>
 </div>
+

@@ -19,11 +19,13 @@
 </head>
 <body>
 <b>이리로 옵니까?</b>
+
+<!--no, myid, group  -->
 	<div>
 		<form action="Group_Create_Proc.jsp" method="post">
 			<input type="hidden" name="num" value="<%=num%>">
 			<input type="hidden" name="myid" value="<%=myid%>">
-			<input type="hidden" name="userid" value="<%=userid%>">
+			<!--<input type="hidden" name="userid" value="<%-- <%=userid%> --%>">-->
 			   
 			<table border="1">
 				<tr>	

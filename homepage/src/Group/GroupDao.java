@@ -23,7 +23,7 @@ public class GroupDao {
 			ds=(DataSource)new InitialContext().lookup("java:comp/env/jdbc/mysqlDB");
 			con=ds.getConnection();
 			if(con!=null){
-				System.out.println("GroupDao Connection");
+			//	System.out.println("GroupDao Connection");
 				
 			}
 		}catch(Exception err){
@@ -43,12 +43,11 @@ public class GroupDao {
 	public void createGroup(GroupDto dto) {
 			String sql="";
 		try{
-			sql="insert into mygroup(myid,userid,my_group) values(?,?,?)";
+			sql="insert into `group`(myid,new_group) values(?,?)";
 			con=ds.getConnection();
 			stmt=con.prepareStatement(sql);
 			stmt.setString(1,dto.getMyid());
-			stmt.setString(2,dto.getUserid());
-			stmt.setString(3,dto.getGroup());
+			stmt.setString(2,dto.getGroup());
 			stmt.executeUpdate();
 			System.out.println("[구룹완성]");
 		}catch(Exception err){
@@ -59,9 +58,39 @@ public class GroupDao {
 			freeCon();
 		}		
 	}
+	
+	public Vector getGruop(String myid){
+		Vector GroupList=new Vector();
+		String sql="";
+			
+			try{
+				System.out.println("getGroup myid:"+myid);
+				sql="select * from `group` where myid=?";
+			con=ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, myid);
+			rs=stmt.executeQuery();
+				
+			while(rs.next()){
+				GroupDto dto= new GroupDto();
+				dto.setNum(rs.getInt("no"));
+				dto.setMyid(rs.getString("myid"));
+				dto.setGroup(rs.getString("new_group"));
+				GroupList.add(dto);
+			}
+			}catch(Exception err){
+				
+				System.out.println("getGruop:"+err);
+			}finally{
+				freeCon();
+				
+			}
+		
+		return GroupList;
+	}
 	//Get group 
-	public Vector getGroup(String myid){
-		Vector GroupList =new Vector();
+	public Vector getCompleteGroup(String myid){
+		Vector CompleteGroupList =new Vector();
 		String sql="";
 		try{
 			System.out.println("getGroup myid:"+myid);
@@ -76,10 +105,10 @@ public class GroupDao {
 				dto.setMyid(rs.getString("myid"));
 				dto.setGroup(rs.getString("my_group"));
 				dto.setUserid(rs.getString("userid"));
-				GroupList.add(dto);
+				CompleteGroupList.add(dto);
 			}
 			
-			System.out.println("getGroup 완성?");
+			System.out.println("[getGroup 완성]");
 		
 		}catch(Exception err){
 			
@@ -90,7 +119,7 @@ public class GroupDao {
 			
 		}
 		
-		return GroupList;	
+		return CompleteGroupList;	
 	}
 	//del
 	public void deleteGroup(int no[]){
@@ -99,12 +128,12 @@ public class GroupDao {
 		try{
 			con=ds.getConnection();
 			for(int i=0;i<no.length;i++){
-				sql="delete from mygroup where no=?";
+				sql="delete from `group` where no=?";
 				stmt=con.prepareStatement(sql);
 				stmt.setInt(1, no[i]);
 				stmt.executeUpdate();
 			}
-			System.out.println("deleteGroup 완성?");
+			System.out.println("[deleteGroup 완성]");
 		} catch(Exception err) {
 			
 			System.out.println("deleteGroup:"+err);
@@ -117,13 +146,13 @@ public class GroupDao {
 	//addGroupFriend
 	public void addGroupFriend(GroupDto dto) {
 			String sql="";
-			System.out.println("여기 오나?");
+			//System.out.println("여기 오나?");
 		try{
-			sql="update mygroup set userid=? where myid=? and my_group=?";
+			sql="insert into mygroup(myid,userid,my_group) values(?,?,?)";
 			con=ds.getConnection();
 			stmt=con.prepareStatement(sql);
-			stmt.setString(1, dto.getUserid());
-			stmt.setString(2, dto.getMyid());
+			stmt.setString(1, dto.getMyid());
+			stmt.setString(2, dto.getUserid());
 			stmt.setString(3, dto.getGroup());
 			stmt.executeUpdate();
 		System.out.println("[addGroupFriend 왕성]");

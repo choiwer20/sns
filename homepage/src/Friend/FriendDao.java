@@ -53,7 +53,7 @@ public class FriendDao {
 				
 			rs=stmt.executeQuery();
 			while(rs.next()){
-				System.out.println("getFriends():"+rs.getString("friends"));
+				//System.out.println("getFriends():"+rs.getString("friends"));
 				FriendDto dto=new FriendDto();
 				dto.setFriends(rs.getString("friends"));
 				dto.setUserid1(rs.getString("userid1"));
