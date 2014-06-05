@@ -1,4 +1,4 @@
-package Friend;
+package Group;
 
 public class FriendDto {
 	private int no;

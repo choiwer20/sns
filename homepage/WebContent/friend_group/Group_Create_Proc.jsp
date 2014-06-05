@@ -1,3 +1,4 @@
+<%@page import="com.sun.java.swing.plaf.windows.resources.windows"%>
 <%@page import="oracle.net.aso.r"%>
 <%@page import="Group.GroupDto"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
@@ -12,6 +13,7 @@
 	String group=request.getParameter("group");
 	System.out.println("myid:"+myid +"group:"+group);
 	groupdao.createGroup(groupdto);
-	response.sendRedirect("/homepage/Friend.jsp");
+	//response.sendRedirect("/homepage/Friend.jsp");
 %>
+
 	

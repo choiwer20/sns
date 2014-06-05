@@ -39,7 +39,8 @@ public class GroupDao {
 		try{if(stmt!=null){stmt.close();}}catch(Exception err){}
 	}
 	
-	//set Group
+	
+	//Create Group
 	public void createGroup(GroupDto dto) {
 			String sql="";
 		try{
@@ -88,7 +89,8 @@ public class GroupDao {
 		
 		return GroupList;
 	}
-	//Get group 
+	/*
+	//Get group (친구 불러오기)
 	public Vector getCompleteGroup(String myid){
 		Vector CompleteGroupList =new Vector();
 		String sql="";
@@ -121,7 +123,7 @@ public class GroupDao {
 		
 		return CompleteGroupList;	
 	}
-	//del
+	//Group delete(구룹 삭제)
 	public void deleteGroup(int no[]){
 		
 		String sql="";
@@ -129,6 +131,7 @@ public class GroupDao {
 			con=ds.getConnection();
 			for(int i=0;i<no.length;i++){
 				sql="delete from `group` where no=?";
+				delete_FriendGroup(no[i]);
 				stmt=con.prepareStatement(sql);
 				stmt.setInt(1, no[i]);
 				stmt.executeUpdate();
@@ -142,6 +145,23 @@ public class GroupDao {
 			freeCon();
 		}
 	}
+	//Group friend Delete(구룹삭제)
+	public void delete_FriendGroup(int no){
+				String sql="";
+		try{
+			con=ds.getConnection();
+			sql="delete from mygroup where no=? ";		
+				stmt=con.prepareStatement(sql);
+				stmt.setInt(1, no);
+				stmt.executeUpdate();
+				System.out.println("[delete_FriendGroup 완성]");
+		} catch(Exception err) {
+			System.out.println("delete_FriendGroup:"+err);	
+		} finally {
+			freeCon();
+		}
+	}
+	*/
 //userid1 userid2 friends  
 	//addGroupFriend
 	public void addGroupFriend(GroupDto dto) {
@@ -162,5 +182,39 @@ public class GroupDao {
 			freeCon();
 			
 		}
+	}
+
+	//friend Get
+	public Vector getFriends(String myid){
+		Vector friendList =new Vector();
+		String sql;
+		try{
+			
+			//System.out.println("getFriends no Before:"+no);
+			sql="select * from freind where userid1=?";
+			con=ds.getConnection();
+			
+			//System.out.println("getFriends no After:"+no);
+			stmt=con.prepareStatement(sql);
+			stmt.setString(1, myid);
+				
+			rs=stmt.executeQuery();
+			while(rs.next()){
+				//System.out.println("getFriends():"+rs.getString("friends"));
+				FriendDto dto=new FriendDto();
+				dto.setFriends(rs.getString("friends"));
+				dto.setUserid1(rs.getString("userid1"));
+				dto.setUserid2(rs.getString("userid2"));
+				friendList.add(dto);
+			}
+			System.out.println("get friends success!");
+		}catch(Exception err){
+			System.out.println("getFriends"+err);
+			
+		}finally{
+			
+			freeCon();
+		}
+		return friendList;
 	}
 }

@@ -1,4 +1,4 @@
-<%@page import="Friend.FriendDto"%>
+<%@page import="Group.FriendDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*"%>
 <html>
 <head>
@@ -19,10 +19,9 @@
 <script type="text/javascript" src="/homepage/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/homepage/js/modernizr.js"></script>
 <script type="text/javascript" src="/homepage/js/responsee.js"></script>
-<jsp:useBean id="friendDao" class="Friend.FriendDao"></jsp:useBean>
+<jsp:useBean id="friendDao" class="Group.GroupDao"></jsp:useBean>
 <%
 	String myid="ImJAVA";
-
 %>
 </head>
 <body class="size-1140">
@@ -97,14 +96,17 @@
 
 	
 
-			<%Vector friendList=(Vector)friendDao.getFriends(myid);%>
+			<%
+			//		Vector friendList=(Vector)friendDao.getFriends(myid);
+				%>
 					
 					<div class="move">
 						<div class="row">
 							<h3>친구목록</h3>
 							<div class="span10" align="center">
-								<%for(int i=0;i<friendList.size();i++){
-									FriendDto dto=(FriendDto)friendList.get(i);
+								<%
+									//for(int i=0;i<friendList.size();i++){
+									//						Group.FriendDto dto=(Group.FriendDto)friendList.get(i);
 								%>
 												
 												
@@ -112,12 +114,12 @@
 									<tbody>
 										<tr>
 											 <td width="50" style="word-break: break-all"><img src="img/3.jpg" alt="그림이 없습니다." style="margin-right: 10px"/>
-											 <a href="#"><%=dto.getUserid2()%></a></td>
+											 <a href="#"><%--  <%=dto.getUserid2()%>--%></a></td>
 											 <td width="50" style="word-break: break-all"><input type="button" value="관리" /></td>
 										</tr>
 									</tbody>
 								</table>
-								<%}%>
+								<%--   <%}%>--%>
 							</div>
 						</div>
 					</div>

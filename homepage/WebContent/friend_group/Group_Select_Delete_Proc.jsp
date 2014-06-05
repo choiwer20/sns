@@ -12,7 +12,7 @@
 	System.out.println("Group_Select_Delete_Proc.jsp check1:"+check1[i]);
 	check2[i] = Integer.parseInt(check1[i]);
 	System.out.println("Group_Select_Delete_Proc.jsp check2:"+check2[i]);
-	dao.deleteGroup(check2);
+	//dao.deleteGroup(check2);
 	}
 
 	response.sendRedirect("../Friend.jsp");

@@ -10,7 +10,7 @@
 	String userid=(String)request.getParameter("addFriend");
 	String mygroup=request.getParameter("mygroup");
 	String myid=request.getParameter("userid1");
-	System.out.println("add_friend myid:"+myid);
+	//System.out.println("add_friend myid:"+myid);
 	//GroupDto 积己
 		groupDto.setGroup(mygroup);
 		groupDto.setMyid(myid);
@@ -19,7 +19,7 @@
 	//模备 眠啊茄 备缝积己
 	dao.addGroupFriend(groupDto);
 	
-	Vector list=(Vector)dao.getCompleteGroup(myid);
+	//Vector list=(Vector)dao.getCompleteGroup(myid);
 	
 	
 	/* //GroupDto dto= dao.();

@@ -1,4 +1,4 @@
-package FriendFind;
+/*package FriendFind;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.util.Vector;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import Friend.FriendDto;
+import Group.FriendDto;
 
 public class FriendFind_Dao {
 	DataSource ds;
@@ -38,7 +38,7 @@ public class FriendFind_Dao {
 		try{if(rs!=null){rs.close();}}catch(Exception err){}
 		try{if(stmt!=null){stmt.close();}}catch(Exception err){}
 	}
-		/*
+		
 	public Vector getFriends(String friendname){
 		
 		Vector friendList =new Vector();
@@ -72,4 +72,5 @@ public class FriendFind_Dao {
 		return friendList;
 	
 	}
-*/}
+}
+*/
